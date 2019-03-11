@@ -55,14 +55,38 @@ class BuildCommand( BaseBuildExtCommand ) :
 
         buildBindings( _sourceDir, _buildDir, _cmakeArgs, _buildArgs, _env )
 
+def grabAllContents( folderPath ) :
+    _elements = os.listdir( folderPath )
+    _files = []
+
+    for _element in _elements :
+        _elementPath = os.path.join( folderPath, _element )
+
+        if os.path.isdir( _elementPath ) :
+            if ( ( '_imgs' in _element ) or
+                 ( 'build' == _element ) or
+                 ( 'egg-info' in _element ) ) :
+                continue
+
+            _files.extend( grabAllContents( _elementPath ) )
+
+        elif ( ( '.cpp' in _element ) or ( '.cc' in _element ) or
+               ( '.h' in _element ) or ( '.hh' in _element ) or
+               ( '.png' in _element ) or ( '.jpg' in _element ) or 
+               ( '.glsl' in _element ) or ( '.cmake' in _element ) or
+               ( 'CMakeLists.txt' == _element ) ) :
+            _files.append( _elementPath )
+
+    return _files
+
 setup(
-    name                    = 'tysoc-mjc',
+    name                    = 'loco-rl',
     version                 = '0.0.1',
-    description             = 'Core functionality for a backend-agnostic locomotion framework',
+    description             = 'A locomotion framework with multi-backend support',
     author                  = 'Wilbert Santos Pumacay Huallpa',
     license                 = 'MIT License',
     author_email            = 'wpumacay@gmail.com',
-    url                     = 'https://github.com/wpumacay/tysocCore',
+    url                     = 'https://github.com/wpumacay/loco',
     keywords                = 'locomotion control simulation',
     packages                = ['pytysoc', 'pytysoc.common', 'pytysoc.runtime'],
     zip_safe                = False,
@@ -70,9 +94,9 @@ setup(
                                 'numpy',
                                 'setuptools'
                               ],
-    package_dir             = { 'pytysoc': 'tysoc/pytysoc',
-                                'pytysoc.common': 'tysoc/pytysoc/common',
-                                'pytysoc.runtime': 'tysoc/pytysoc/runtime' },
+    package_dir             = { 'pytysoc': 'core/pytysoc',
+                                'pytysoc.common': 'core/pytysoc/common',
+                                'pytysoc.runtime': 'core/pytysoc/runtime' },
     package_data            = {
                                 'pytysoc': [ '../res/templates/mjcf/*.xml',
                                              '../res/templates/urdf/*.urdf',
@@ -91,7 +115,7 @@ setup(
                               },
     ext_modules             = [
                                 CMakeExtension( 'tysoc_bindings', '.', 
-                                                sources = ['src/mujoco_utils.cpp'] )
+                                                sources = grabAllContents( '.' ) )
                               ],
     cmdclass                = {
                                 'build_ext': BuildCommand

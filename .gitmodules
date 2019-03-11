@@ -4,4 +4,4 @@
 [submodule "physics/mujoco"]
 	path = physics/mujoco
 	url = https://github.com/wpumacay/tysocMjc.git
-	fetchRecurseSubmodules = false
+	recurse = false

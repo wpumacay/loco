@@ -1,3 +1,7 @@
 [submodule "core"]
 	path = core
 	url = https://github.com/wpumacay/tysoc.git
+[submodule "physics/mujoco"]
+	path = physics/mujoco
+	url = https://github.com/wpumacay/tysocMjc.git
+	fetchRecurseSubmodules = false

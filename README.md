@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/wpumacay/loco.svg?branch=master)](https://travis-ci.com/wpumacay/loco)
 
-https://media.giphy.com/media/u48REyy0BzCUzbLyXC/giphy.gif
+![gif-ant-sample](https://media.giphy.com/media/u48REyy0BzCUzbLyXC/giphy.gif)
 
 This is a locomotion framework that is intended to provide a new set of benchmarks 
 for for RL research in locomotion by allowing the user to create a wide range of
@@ -99,3 +99,5 @@ while _visualizer.isActive() :
     _visualizer.render()
 
 ```
+
+Some more examples can be found [here](https://github.com/wpumacay/tysocMjc/tree/5cfd6106cd550e221b516f9b57b5623d3571f6b9/examples/python).

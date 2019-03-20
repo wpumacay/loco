@@ -5,7 +5,7 @@
 ![gif-ant-sample](https://media.giphy.com/media/u48REyy0BzCUzbLyXC/giphy.gif)
 
 This is a locomotion framework that is intended to provide a new set of benchmarks 
-for for RL research in locomotion by allowing the user to create a wide range of
+for RL research in locomotion by allowing the user to create a wide range of
 diverse and complex environments. The core framework is engine-agnostic (it is not
 coupled to a specific physics engine), and allows to support a wide variety of
 physics engine. For now it support MuJoCo, and I'm currently working in support
@@ -13,8 +13,7 @@ for Bullet as well (and PhysX in approx. July/August).
 
 ## Setting up the project
 
-So far the framework has been tested in Ubuntu 16.04. Support for MacOS will
-be fixed in the following days.
+So far the framework has been tested in Ubuntu 16.04 and MacOS.
 
 ### Dependencies
 
@@ -27,10 +26,19 @@ On Ubuntu 16.04 :
     $ sudo apt-get install libassimp-dev libglfw3-dev libglew-dev
 ```
 
+On MacOS :
+
+```shell
+    $ brew install glew
+    $ brew install glfw
+    $ brew install pkg-config
+    $ brew install assimp
+```
+
 2. Install [MuJoCo](https://www.roboti.us/index.html) in your system (to have MuJoCo 
    as an available backend). The build rules expect the MuJoCo libraries to be
-   extracted in `~/.mujoco/mujoco200_linux`, and the license key placed in 
-   `~/.mujoco/mjkey.txt`.
+   extracted in `~/.mujoco/mujoco200_linux` ( or `~/.mujoco/mujoco200_macos` for macOS ), 
+   and the license key placed in `~/.mujoco/mjkey.txt` ( the same path `~/.mujoco/mjkey.txt` for macOS ).
 
 3. It is recommended that you use a virtual environment. Using conda, create
    the following environment:
@@ -38,6 +46,13 @@ On Ubuntu 16.04 :
 ```shell
     $ conda create -n loco_env python=3.6
     $ source activate loco_env
+```
+
+4. (MacOS) During runtime, the linker tries to find the libraries in `@executable_path`, so
+   a fix for this is to add the path `~/.mujoco/mujoco200_macos` to your `DYLD_LIBRARY_PATH`.
+
+```shell
+    $ export DYLD_LIBRARY_PATH=~/.mujoco/mujoco200_macos:$DYLD_LIBRARY_PATH
 ```
 
 ### Building

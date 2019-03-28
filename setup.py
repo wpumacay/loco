@@ -79,6 +79,37 @@ def grabAllContents( folderPath ) :
 
     return _files
 
+# grab all packages inside that are only related to the loco repo
+loco_packages = [ package for package in find_packages( '.' ) if package.startswith( 'loco' ) ]
+# grab the data related to the loco repo
+loco_packages_data = []
+
+# grab all packages inside core repo (tysoc)
+tysoc_packages = [ package for package in find_packages( 'core' ) if package.startswith( 'pytysoc' ) ]
+# create the dirs where each package in core points to
+tysoc_packages_dirs = { package: 'core/' + package.replace( '.', '/' ) for package in tysoc_packages }
+# grab the data related to the core repo (tysoc)
+tysoc_packages_data = [ '../res/templates/mjcf/*.xml',
+                        '../res/templates/urdf/*.urdf',
+                        '../res/templates/rlsim/*.json',
+                        '../res/xml/*.xml',
+                        '../res/xml/baxter_meshes/*.stl',
+                        '../res/xml/baxter_meshes/*.obj',
+                        '../res/xml/laikago_meshes/*.stl',
+                        '../res/xml/laikago_meshes/*.obj',
+                        '../res/xml/nao_meshes/*.stl',
+                        '../res/xml/nao_meshes/*.obj',
+                        '../res/xml/r2d2_meshes/*.stl',
+                        '../res/xml/r2d2_meshes/*.obj',
+                        '../res/xml/sawyer_meshes/*.stl',
+                        '../res/xml/sawyer_meshes/*.obj' ]
+
+packages = loco_packages + tysoc_packages
+packages_dirs = tysoc_packages_dirs
+
+print( 'packages: ', packages )
+print( 'dirs: ', packages_dirs )
+
 setup(
     name                    = 'loco-rl',
     version                 = '0.0.1',
@@ -88,30 +119,16 @@ setup(
     author_email            = 'wpumacay@gmail.com',
     url                     = 'https://github.com/wpumacay/loco',
     keywords                = 'locomotion control simulation',
-    packages                = ['pytysoc', 'pytysoc.common', 'pytysoc.runtime'],
+    packages                = packages,
     zip_safe                = False,
     install_requires        = [
                                 'numpy',
                                 'setuptools'
                               ],
-    package_dir             = { 'pytysoc': 'core/pytysoc',
-                                'pytysoc.common': 'core/pytysoc/common',
-                                'pytysoc.runtime': 'core/pytysoc/runtime' },
+    package_dir             = packages_dirs,
     package_data            = {
-                                'pytysoc': [ '../res/templates/mjcf/*.xml',
-                                             '../res/templates/urdf/*.urdf',
-                                             '../res/templates/rlsim/*.json',
-                                             '../res/xml/*.xml',
-                                             '../res/xml/baxter_meshes/*.stl',
-                                             '../res/xml/baxter_meshes/*.obj',
-                                             '../res/xml/laikago_meshes/*.stl',
-                                             '../res/xml/laikago_meshes/*.obj',
-                                             '../res/xml/nao_meshes/*.stl',
-                                             '../res/xml/nao_meshes/*.obj',
-                                             '../res/xml/r2d2_meshes/*.stl',
-                                             '../res/xml/r2d2_meshes/*.obj',
-                                             '../res/xml/sawyer_meshes/*.stl',
-                                             '../res/xml/sawyer_meshes/*.obj' ]
+                                'loco' : loco_packages_data,
+                                'pytysoc' : tysoc_packages_data
                               },
     ext_modules             = [
                                 CMakeExtension( 'tysoc_bindings', '.', 

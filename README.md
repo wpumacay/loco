@@ -83,35 +83,17 @@ following script:
 
 ```python
 
-
-import os
-import tysoc_bindings
-import pytysoc
-
 import numpy as np
 
-_agent = tysoc_bindings.PyCoreAgent( 'agent0', [0,0,0.75], 'mjcf', 'ant' )
-_terrainGen = tysoc_bindings.PyStaticTerrainGen( 'terrainGen0' )
-_terrainGen.createPrimitive( 'plane', [10,10,0.1], [0,0,0], [0,0,0], [.2,.3,.4], 'chessboard' )
+from loco.suite import basic
 
-_scenario = tysoc_bindings.PyScenario()
-_scenario.addAgent( _agent )
-_scenario.addTerrainGen( _terrainGen )
+_env = basic.load( 'humanoid', 'walk' )
 
-_runtime = pytysoc.createRuntime( physicsBackend = pytysoc.BACKENDS.PHYSICS.MUJOCO,
-                                  renderingBackend = pytysoc.BACKENDS.RENDERING.GLVIZ,
-                                  workingDir = pytysoc.PATHS.WORKING_DIR )
+while True :
+    _u = -1.0 + 2.0 * np.random.random( ( _env.actionDim(), ) )
 
-_simulation = _runtime.createSimulation( _scenario )
-_simulation.initialize()
-
-_visualizer = _runtime.createVisualizer( _scenario )
-_visualizer.initialize()
-
-while _visualizer.isActive() :
-
-    _simulation.step()
-    _visualizer.render()
+    _env.step( _u )
+    _env.render()
 
 ```
 

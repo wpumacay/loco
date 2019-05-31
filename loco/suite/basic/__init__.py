@@ -2,6 +2,7 @@
 import inspect
 
 from loco.suite.basic import humanoid
+from loco.suite.basic import walker
 from loco.suite.basic import ant
 from loco.suite.basic import dog
 from loco.suite.basic import raptor

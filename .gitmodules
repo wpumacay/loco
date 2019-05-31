@@ -1,8 +1,21 @@
-[submodule "core"]
-	path = core
-	url = https://github.com/wpumacay/tysoc.git
-	shallow = true
+[submodule "ext/cat1"]
+	path = ext/cat1
+	url = https://github.com/wpumacay/cat1.git
+[submodule "ext/imgui"]
+	path = ext/imgui
+	url = https://github.com/wpumacay/imgui.git
+[submodule "ext/pybind11"]
+	path = ext/pybind11
+	url = https://github.com/pybind/pybind11.git
+[submodule "ext/bullet"]
+	path = ext/bullet
+	url = https://github.com/wpumacay/bullet3.git
 [submodule "physics/mujoco"]
 	path = physics/mujoco
 	url = https://github.com/wpumacay/tysocMjc.git
-	shallow = true
+[submodule "physics/bullet"]
+	path = physics/bullet
+	url = https://github.com/wpumacay/tysocBullet.git
+[submodule "core"]
+	path = core
+	url = https://github.com/wpumacay/tysoc.git

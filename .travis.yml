@@ -1,12 +1,15 @@
 language: cpp
 dist: xenial
 sudo: required
+git:
+    submodules: false
 matrix: 
   include:
     - os: linux
       env: PYTHON=3.6
 
 before_install:
+  - git submodule update --init --depth=1
   - sudo apt-get install make cmake pkg-config
   - sudo apt-get install libassimp-dev libglfw3-dev libglew-dev
   - mkdir -p ~/.mujoco

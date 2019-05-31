@@ -37,9 +37,9 @@ class BasicEnvironment( base.Environment ) :
                                            self._startpos )
 
         self._terraingen = pytysoc.createStaticTerrainGen( 'floorGenerator' )
-        self._terraingen.createPrimitive( 'plane',          # name
+        self._terraingen.createPrimitive( 'box',            # name
                                           [10, 10, 0.1],    # dimensions
-                                          [0, 0, 0],        # position
+                                          [0, 0, -0.05],    # position
                                           [0, 0, 0],        # orientation (euler)
                                           [0.2, 0.3, 0.4],  # color
                                           'chessboard' )    # texture

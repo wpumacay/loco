@@ -10,6 +10,7 @@
 [submodule "ext/bullet"]
 	path = ext/bullet
 	url = https://github.com/wpumacay/bullet3.git
+	shallow = true
 [submodule "physics/mujoco"]
 	path = physics/mujoco
 	url = https://github.com/wpumacay/tysocMjc.git

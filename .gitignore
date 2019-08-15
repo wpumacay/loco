@@ -1,6 +1,16 @@
+# file-exclusions
+*.o
+*.pyc
+*.pyo
+*.swp
+*.swo
+*.so
+*.a
+*.gif
+*.ini
+
+# folder-exclusions
 build/
 dist/
 __pycache__/
 *.egg-info/
-*.gif
-*.ini

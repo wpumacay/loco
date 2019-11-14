@@ -4,6 +4,8 @@
 
 ![gif-ant-sample](https://media.giphy.com/media/u48REyy0BzCUzbLyXC/giphy.gif)
 
+![gif-demo-sample](https://media.giphy.com/media/ZDEAQSUraLao0fOhHi/giphy.gif)
+
 This is a locomotion framework that is intended to provide a new set of benchmarks 
 for RL research in locomotion by allowing the user to create a wide range of
 diverse and complex environments. The core framework is engine-agnostic (it is not

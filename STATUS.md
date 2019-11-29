@@ -5,6 +5,8 @@ of the feature.
 
 ## Current status
 
+**28-nov-2019**
+
 * The mujoco-backend is the only one integrated so far. I was rewriting the renderer from scratch (again)
   in the past month, so I couldn't port most of the working functionality on the bullet backend. During
   the integration of the new renderer, I also modified quite a bit the API exposed to the user, so most

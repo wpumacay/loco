@@ -6,25 +6,41 @@ git:
 matrix: 
   include:
     - os: linux
-      env: PYTHON=3.6
+      dist: xenial
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+      env:
+        - MATRIX_EVAL_XENIAL="CC=gcc-8 && CXX=g++-8"
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+      env: 
+        - MATRIX_EVAL_BIONIC="CC=gcc-8 && CXX=g++-8"
 
 before_install:
   - git submodule update --init --depth=1
-  - sudo apt-get install make cmake pkg-config
-  - sudo apt-get install libassimp-dev libglfw3-dev libglew-dev
-  - sudo apt-get install libeigen3-dev
+  - sudo apt install make cmake pkg-config
+  - sudo apt install libassimp-dev libglfw3-dev libglew-dev
+  - sudo apt install libeigen3-dev
   - mkdir -p ~/.mujoco
   - wget https://www.roboti.us/download/mujoco200_linux.zip
   - unzip mujoco200_linux.zip -d ~/.mujoco/
-  - |
-    if [ -n "$PYTHON" ]; then
-      pip install --user --upgrade pip virtualenv
-      virtualenv -p $(which python3) venv
-      source venv/bin/activate
-    fi
 script:
   - |
-    if [ -n "$PYTHON" ]; then
-      pip install setuptools numpy scipy
-      python setup.py build
+    if [ $TRAVIS_DIST = 'xenial' ]; then
+      eval "${MATRIX_EVAL_XENIAL}"
     fi
+  - |
+    if [ $TRAVIS_DIST = 'bionic' ]; then
+      eval "${MATRIX_EVAL_BIONIC}"
+    fi
+  - mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4

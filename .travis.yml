@@ -44,4 +44,6 @@ before_install:
     fi
   - python --version
 script:
-  - mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4
+  - mkdir build && cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.6 -DPYTHON_LIBRARY=$(python-config --prefix)/lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.6m ..
+  - make -j4

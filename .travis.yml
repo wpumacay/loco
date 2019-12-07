@@ -36,14 +36,16 @@ before_install:
   - wget https://www.roboti.us/download/mujoco200_linux.zip
   - unzip mujoco200_linux.zip -d ~/.mujoco/
   - eval "${MATRIX_EVAL}"
-  - |
-    if [ -n "$PYTHON" ]; then
-      pip install --user --upgrade pip virtualenv
-      virtualenv -p $(which python3) venv
-      source venv/bin/activate
-    fi
-  - python --version
+  - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - source "$HOME/miniconda/etc/profile.d/conda.sh"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda info -a
+  - conda create -q -n travis_env python=3.6 setuptools numpy scipy
+  - conda activate travis_env
 script:
   - mkdir build && cd build
-  - cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.6 -DPYTHON_LIBRARY=$(python-config --prefix)/lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.6m ..
+  - cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=$HOME/miniconda/envs/travis_env/bin/python3.6 -DPYTHON_LIBRARY=$HOME/miniconda/envs/travis_env/lib/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$HOME/miniconda/envs/travis_env/include/python3.6m ..
   - make -j4

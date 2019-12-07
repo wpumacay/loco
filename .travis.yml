@@ -14,7 +14,8 @@ matrix:
           packages:
             - g++-8
       env:
-        - MATRIX_EVAL_XENIAL="CC=gcc-8 && CXX=g++-8"
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+        - PYTHON=3.6
     - os: linux
       dist: bionic
       addons:
@@ -24,7 +25,8 @@ matrix:
           packages:
             - g++-8
       env: 
-        - MATRIX_EVAL_BIONIC="CC=gcc-8 && CXX=g++-8"
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+        - PYTHON=3.6
 
 before_install:
   - git submodule update --init --depth=1
@@ -34,13 +36,12 @@ before_install:
   - mkdir -p ~/.mujoco
   - wget https://www.roboti.us/download/mujoco200_linux.zip
   - unzip mujoco200_linux.zip -d ~/.mujoco/
+  - eval "${MATRIX_EVAL}"
+  - |
+    if [ -n "$PYTHON" ]; then
+      pip install --user --upgrade pip virtualenv
+      virtualenv -p $(which python3) venv
+      source venv/bin/activate
+    fi
 script:
-  - |
-    if [ $TRAVIS_DIST = 'xenial' ]; then
-      eval "${MATRIX_EVAL_XENIAL}"
-    fi
-  - |
-    if [ $TRAVIS_DIST = 'bionic' ]; then
-      eval "${MATRIX_EVAL_BIONIC}"
-    fi
   - mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4

@@ -123,7 +123,8 @@ setup(
     zip_safe                = False,
     install_requires        = [
                                 'numpy',
-                                'setuptools'
+                                'setuptools',
+                                'scipy'
                               ],
     package_dir             = packages_dirs,
     package_data            = {

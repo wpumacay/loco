@@ -1,5 +1,12 @@
-
 cmake_minimum_required( VERSION 3.0.0 )
+
+project( loco )
+
+if ( NOT CMAKE_BUILD_TYPE )
+    set( CMAKE_BUILD_TYPE Debug )
+endif()
+
+message( "Building Loco in \"${CMAKE_BUILD_TYPE}\" mode" )
 
 set( CMAKE_CXX_STANDARD 11 )
 
@@ -14,6 +21,8 @@ message( "LOCO> LIBRARY_OUT_DIR: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}" )
 
 # Add external dependencies
 add_subdirectory( ext )
+set( CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/ext/raisim" )
+find_package( raisim CONFIG REQUIRED )
 
 # Configure core functionality
 add_subdirectory( core )
@@ -21,6 +30,7 @@ add_subdirectory( core )
 # Configure physics backends
 add_subdirectory( physics/mujoco )
 add_subdirectory( physics/bullet )
+add_subdirectory( physics/raisim )
 
 # Configure loco project **********************************************************************************
 

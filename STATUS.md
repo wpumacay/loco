@@ -30,3 +30,23 @@ of the feature.
   time to the headless renderer, as it will become a must once fellow researchers start using it with
   camera sensors.
 
+**16-dec-2019**
+
+* The functionality for single-body objects is working in all branches (MuJoCo, DART, Bullet and RaiSim). I haven't updated
+  the docs yet as I'm currently working on Compound-bodies as well (to create more complex structures like doors, etc.), and
+  I'd like to have at least that working on MuJoCo as a proof of concept (sorry for that, I should have started working on that
+  on a separate branch). Single-bodies support both primitives like spheres, boxes, etc., meshes, and also height fields (so we
+  can in principle start building some nice terrain using these). There's still some support that I have to make sure is exposed
+  in all backends, like collision groups, changing collider sizes at runtime, etc.. I'll keep posting in the next couple of
+  weeks.
+* Note that Compound-bodies are different from Kinematic trees, as the later is the abstraction that will be used for agent
+  in the environment (will have actuators, sensors, and more functionality). Currently there's a proof of concept working on
+  MuJoCo based on an old API that I designed, but I'll reimplement all that from scratch to make sure everything works correctly
+  and makes sense in all backends.
+* Just to clarify, the **demo** that's currently working **shows the proof of concept for a single backend (MuJoCo)**. Some of
+  the functionality is not standard yet, as I'm currently changing the API a lot to expose common functionality to all backends.
+  The timeline for the next month includes finish full support for single bodies, compounds, and kinematic trees (agents) working
+  in all backends, so the demo should then work in all backends as in the gif shown in the readme.
+* Finally, if you'd like to have a feature implemented, just let me know as I'm currently designing most of the core 
+  functionality and the API, so perhaps I could accommodate this into the current timeline I have. Just send me an email to
+  wpumacay@gmail.com, I'd be happy to discuss your requirements.

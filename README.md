@@ -1,5 +1,4 @@
-**Status**: Heavy development (you might run into crashes as the library is being developed, sorry in advance). For
-            further info on the current status, check [STATUS.md](./STATUS.md)
+**Status**: Heavy development (you might run into crashes as the library is being developed, sorry in advance)
 
 # Loco: A locomotion framework for RL research
 
